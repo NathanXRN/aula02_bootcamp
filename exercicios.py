@@ -1,4 +1,5 @@
 import math
+import re
 
 # 1. Escreva um programa que soma dois números inteiros inseridos pelo usuário.
 
@@ -165,3 +166,157 @@ print(resultado)
 resultado = valor1 != valor2
 
 print(resultado)
+
+# 21. Escreva um programa que converta a temperatura de Celsius para Fahrenheit. O programa deve solicitar ao usuário a temperatura em Celsius e,
+# utilizando `try-except`, garantir que a entrada seja numérica, tratando qualquer ValueError.
+# Imprima o resultado em Fahrenheit ou uma mensagem de erro se a entrada não for válida.
+
+try:
+    temperatura_celsius = float(input("Digite a temperatura em Graus Celsius: "))
+    temperatura_fahrenheit = (temperatura_celsius * 1.8) + 32
+    print(temperatura_fahrenheit)
+except:
+    print("invalid number! Try again...")
+
+# 22. Crie um programa que verifica se uma palavra ou frase é um palíndromo. Utilize `try-except` para garantir que a entrada seja uma string.
+# Dica: Utilize a função isinstance() para verificar o tipo de entrada.
+
+def palindromo(frase):
+    frase_normal = frase.lower()
+    frase_normal = re.sub(r'[^a-z]', '', frase_normal)
+    frase_invertida = frase_normal[::-1]
+    return frase_normal == frase_invertida
+
+
+try:
+    frase = input("Digite uma frase: ")
+    if isinstance(frase, str):
+        if re.search(r'[0-9]', frase):
+            raise ValueError("Números não são permitidos")
+        if palindromo(frase):
+            print("É palíndromo")
+        else:
+            print("Não é palíndromo")
+except Exception as err:
+    print("Invalid Value! Please, try again!")
+
+# 23. Calculadora Simples 
+# Desenvolva uma calculadora simples que aceite duas entradas numéricas e um operador(+,-,*,/) do usuário. Use try-except para lidar com divisões por zero e entradas não numéricas.
+# Utilize if-elif-else para realizar a operação matemática baseada no operador fornecido. Imprima o resultado ou manda uma mensagem de erro apropriada.
+try:
+    num1     = float(input("Digite um número: "))
+    num2     = float(input("Digite outro número: "))
+    
+    operador = input("Digite o operador: ")
+
+    if operador not in ['+','-','*','/']:
+        raise ValueError("Operador Inválido")
+    
+    if operador == '+':
+        resultado = num1 + num2 
+        print(f"{num1} + {num2} = {resultado}")
+
+    elif operador == '-':
+        resultado = num1 - num2 
+        print(f"{num1} - {num2} = {resultado}")
+
+    elif operador == '*':
+        resultado = num1 * num2 
+        print(f"{num1} * {num2} = {resultado}")
+
+    elif operador == '/':
+        if num2 == 0:
+            raise ZeroDivisionError("Divisão por zero não é permitida")
+        resultado = num1 / num2 
+        print(f"{num1} / {num2} = {resultado}")
+
+except ValueError as e:
+    if "Não foi possível converter" in str(e):
+        print("Erro: Digite apenas números válidos!")
+    else:
+        print(f"Erro:{e}")
+
+except ZeroDivisionError as e:
+    print(f"Erro: {e}")
+
+except Exception as e:
+    print("Erro inesperado! Tente novamente")
+
+# 24. Classificador de Números
+# Escreva um programa que solicite ao usuário para digitar um número. Utilize try-except para assegurar que a entrada seja numérica e utilize if-elif-else para classificar
+# o número como "positivo", "negativo", ou "zero". Adicionalmente, identifique se o número é "par" ou "ímpar".
+
+def classificador():
+    """Classificador de Números com tratamento de erros"""
+    try:
+        print("===CLASSIFICADOR DE NÚMEROS===")
+
+        num = float(input("Digite um número: "))
+
+        if num == 0:
+            print(f"{num} = ZERO ")
+        
+        elif num > 0:
+            print(f"{num} = POSITIVO ")
+        
+        else:
+            print(f"{num} = Negativo ")
+        
+        if num % 2 == 0:
+            print(f"Este número {num} é par!")
+        
+        else:
+            print(f"Este número {num} é ímpar!")
+        
+    except ValueError as e:
+        if "could not convert" in str(e):
+            print("Digite apenas números!")
+        else:
+            print(f"Erro: {e}")
+
+    except Exception as e:
+        print("Erro Inesperado, Tente Novamente!")
+
+classificador()
+
+# 25. Conversão do Tipo com Validação 
+# Crie um script que solicite ao usuário uma lista de números separados por vírgula. O programa deve converter a string de entrada em uma lista de números inteiros.
+# Utilize try-except para tratar a conversão de cada número e validar que cada elemento da lista convertida é um inteiro. Se a conversão falhar ou um elemento não for um
+# inteiro, imprima uma mensagem de erro. Se a conversão for bem-sucedida para todos os elementos, imprima a lista de inteiros.
+
+def conversao_lista():
+    """Conversão do Tipo com Validação e com tratameno de erros"""
+    
+    try:
+        print("===Conversão do Tipo com Validação===")
+
+        lista_numeros = []
+
+        entrada = input("Digite números separados por vírgulas: ")
+
+        numero_str = entrada.split(",")
+
+        for i, numero_str in enumerate(numero_str):
+            try:
+                numero = int(numero_str.strip())
+                lista_numeros.append(numero)
+
+            except ValueError:
+                raise ValueError(f"Erro na posição {i+1}: '{numero_str.strip()}' não é um número válido!")
+            
+        print(f"Conversão bem-sucedida!")
+        print(f"lista_numeros = {lista_numeros}")
+
+    except ValueError as e:
+        print(f"Erro de conversão: {e}")
+
+    except Exception as e:
+        print(f"Erro inesperado: {e}")
+
+conversao_lista()
+
+
+
+
+    
+    
